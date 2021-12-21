@@ -7,4 +7,4 @@ API para cadastro de produtos
 `docker compose up -d`
 
 ## Documentação da API
-`http://localhost:8080/swagger-ui.html`
+`http://localhost:3000/swagger-ui.html`
