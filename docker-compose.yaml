@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - '27017:27017'
+
+  produto-api:
+    build: .
+    container_name: produto-api
+    restart: always
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/EcommerceDB
+    ports:
+      - '3000:8080'
+    depends_on:
+      - mongo
+
+networks:
+  default:
+    name: ecommerce-net
