@@ -9,6 +9,7 @@ import com.ecommerce.produtoapi.exception.ResourceNotFoundException;
 import com.ecommerce.produtoapi.model.Produto;
 import com.ecommerce.produtoapi.repository.ProdutoRepository;
 import com.ecommerce.produtoapi.service.SequenceGeneratorService;
+import io.swagger.annotations.ApiOperation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +33,14 @@ public class ProdutoController {
 
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
-
+    
+    @ApiOperation(value="Lista todos os produtos")
     @GetMapping("/produtos")
     public List<Produto> getAllProdutos() {
         return produtoRepository.findAll();
     }
 
+    @ApiOperation(value="Retorna o produto pelo Id informado")
     @GetMapping("/produtos/{id}")
     public ResponseEntity<Produto> getAllProdutoById(@PathVariable(value = "id") long produtoId)
             throws ResourceNotFoundException {
@@ -47,12 +50,14 @@ public class ProdutoController {
         return ResponseEntity.ok(produto);
     }
 
+    @ApiOperation(value="Cria um produto")
     @PostMapping("/produtos")
     public Produto createProduto(@Valid @RequestBody Produto produto) {
         produto.setId(sequenceGeneratorService.generateSequence(Produto.SEQUENCE_NAME));
         return produtoRepository.save(produto);
     }
 
+    @ApiOperation(value="Altera o produto pelo Id informado")
     @PutMapping("/produtos/{id}")
     public ResponseEntity<Produto> updateProdutos(@PathVariable(value = "id") Long produtoId,
             @Valid @RequestBody Produto produtoDetails) throws ResourceNotFoundException {
@@ -68,6 +73,7 @@ public class ProdutoController {
         return ResponseEntity.ok(updateProduto);
     }
 
+    @ApiOperation(value="Exclui o produto pelo Id informado")
     @DeleteMapping("/produtos/{id}")
     public Map<String, Boolean> deleteProduto(@PathVariable(value = "id") Long produtoId)
             throws ResourceNotFoundException {

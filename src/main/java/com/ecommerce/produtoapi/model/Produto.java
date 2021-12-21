@@ -1,5 +1,6 @@
 package com.ecommerce.produtoapi.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -11,17 +12,21 @@ public class Produto {
     @Transient
     public static final String SEQUENCE_NAME = "products_sequence";
 
+    @ApiModelProperty(notes="Id do produto", hidden = true)
     @Id
     private long id;
 
+    @ApiModelProperty(notes="Código do produto", name="codigo", value="COD001")
     @NonNull
     @Indexed(unique = true)
     private String codigo;
 
+    @ApiModelProperty(notes="Nome do produto", name="nome", value="Camisa do Flamengo")
     @NonNull
     @Indexed(unique = true)
     private String nome;
     
+    @ApiModelProperty(notes="Preço do produto", name="preco", value="299.99")
     @NonNull
     private Double preco;
 
